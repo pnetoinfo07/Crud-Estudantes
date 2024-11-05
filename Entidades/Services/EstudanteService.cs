@@ -1,4 +1,6 @@
 ﻿using Core.Entidades;
+using Core.Entidades.Interfaces.Repositorio;
+using Core.Entidades.Interfaces.Service;
 using Core.Repositorios;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -10,21 +12,21 @@ using System.Threading.Tasks;
 
 namespace Core.Services
 {
-    public class EstudanteService
+    public class EstudanteService : IEstudanteService
     {
-        private readonly EstudanteRepositorio repositorio;
-        public EstudanteService(IConfiguration config)
+        private readonly IEstudanteRepository _repositorio;
+        public EstudanteService(IEstudanteRepository repositorio)
         {
-            repositorio = new EstudanteRepositorio(config);
+            _repositorio = repositorio;
         }
 
         public void Adicionar(Estudante estudante)
         {
-            repositorio.Adicionar(estudante);
+            _repositorio.Adicionar(estudante);
         }
         public List<Estudante> Listar()
         {
-            return repositorio.Listar();
+            return _repositorio.Listar();
         }
     }
 }
